@@ -39,8 +39,8 @@ set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status && notify_current_volume.sh
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status && notify_current_volume.sh
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status && notify_current_volume.sh
-bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 100% && $refresh_i3status
-bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 0% && $refresh_i3status
+bindsym Shift+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 100% && $refresh_i3status && notify_current_volume.sh
+bindsym Shift+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ 0% && $refresh_i3status && notify_current_volume.sh
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -195,7 +195,7 @@ bar {
 exec --no-startup-id xrandr --output DVI-I-1 --primary --rate 144 --mode 1920x1080 --left-of HDMI-0 --output HDMI-0 --auto
 exec keepassxc
 exec --no-startup-id setxkbmap -layout de,us -option 'grp:alt_shift_toggle'
-exec --no-startup-id valgrind 2>/home/andreask/valgrind.log /home/andreask/xkb-switch-i3/Debug/xkb-switch --i3 -d 2>&1 > xkb.log
+exec --no-startup-id valgrind --log-file=/home/andreask/valgrind.log /home/andreask/xkb-switch-i3/Debug/xkb-switch --i3 -d > xkb.log 2>&1 
 exec --no-startup-id xkb-switch -W | xargs -L1 sh -c "$refresh_i3status"
 exec --no-startup-id xsetroot -solid '#222222'
 exec --no-startup-id feh --no-fehbg --bg-fill ~/Bilder/i3-wallpaper.png
