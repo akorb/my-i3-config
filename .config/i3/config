@@ -195,11 +195,13 @@ bar {
 exec --no-startup-id xrandr --output DVI-I-1 --primary --rate 144 --mode 1920x1080 --left-of HDMI-0 --output HDMI-0 --auto
 exec keepassxc
 exec --no-startup-id setxkbmap -layout de,us -option 'grp:alt_shift_toggle'
-exec --no-startup-id valgrind --log-file=/home/andreask/valgrind.log /home/andreask/xkb-switch-i3/Debug/xkb-switch --i3 -d > xkb.log 2>&1 
+exec --no-startup-id /home/andreask/xkb-switch-i3/Debug/xkb-switch -d --i3 > xkb.log 2>&1 
 exec --no-startup-id xkb-switch -W | xargs -L1 sh -c "$refresh_i3status"
 exec --no-startup-id xsetroot -solid '#222222'
 exec --no-startup-id feh --no-fehbg --bg-fill ~/Bilder/i3-wallpaper.png
 exec --no-startup-id picom
+exec --no-startup-id redshift-gtk
+
 
 bindsym $mod+Print exec "flameshot gui"
 

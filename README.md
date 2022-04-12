@@ -7,3 +7,4 @@ Requirements:
 - feh
 - dunst
 - flameshot
+- redshift & redshift-gtk
