@@ -28,7 +28,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -B 10 -k --keylayout 2 --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -B 10 -k --keylayout 2 --nofork --pass-media-keys --pass-volume-keys
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -156,7 +156,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+s exec "i3-nagbar -t warning -m 'Do you really want to shutdown?' -B 'Yes, shutdown' 'shutdown now'"
 
 # resize window (you can also use the mouse for that)'
 mode "resize" {
@@ -192,16 +193,21 @@ bar {
         tray_output primary
 }
 
-exec --no-startup-id xrandr --output DVI-I-1 --primary --rate 144 --mode 1920x1080 --left-of HDMI-0 --output HDMI-0 --auto
+exec --no-startup-id xrandr --output DVI-I-1 --primary --rate 144 --mode 1920x1080 --right-of HDMI-0 --output HDMI-0 --auto
 exec keepassxc
 exec --no-startup-id setxkbmap -layout de,us -option 'grp:alt_shift_toggle'
-exec --no-startup-id /home/andreask/xkb-switch-i3/Debug/xkb-switch -d --i3 > xkb.log 2>&1 
+exec --no-startup-id xkb-switch -d --i3 > xkb.log 2>&1
 exec --no-startup-id xkb-switch -W | xargs -L1 sh -c "$refresh_i3status"
-exec --no-startup-id xsetroot -solid '#222222'
 exec --no-startup-id feh --no-fehbg --bg-fill ~/Bilder/i3-wallpaper.png
 exec --no-startup-id picom
 exec --no-startup-id redshift-gtk
 
+# Moving workspaces between screens 
+bindsym $mod+o move workspace to output left
+bindsym $mod+p move workspace to output right
+bindsym $mod+Tab workspace back_and_forth
+
+for_window [all] title_window_icon padding 3px
 
 bindsym $mod+Print exec "flameshot gui"
 
